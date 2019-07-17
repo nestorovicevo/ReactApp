@@ -1,13 +1,12 @@
-import React from 'react'
-import'./MovieThumb.css'
-
+import React from 'react';
+import './MovieThumb.css';
 
 const MovieThumb = (props) => {
-    return (
-        <div>
-            MovieThumb
-        </div>
-    )
+  return (
+    <div className="rmdb-moviethumb">
+      <img src={props.image} alt="moviethumb" />
+    </div>
+  )
 }
 
 export default MovieThumb;
