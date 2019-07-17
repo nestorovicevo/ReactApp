@@ -24,6 +24,22 @@ class Home extends Component {
         this.fetchItems(endpoint);
     }
 
+    searchItems = (searchTerm) => {
+        console.log(searchTerm);
+        let endpoint = '';
+        this.setState({
+            movies: [],
+            loading: true,
+            searchTerm  //ne treba mu nikakva vrednost, jer kad je vrednost ista kao parametar koji je prosledjen u funkciji, pise se samo
+        })
+        if (searchTerm === '') {
+            endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`
+        } else {
+            endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchTerm}`;
+        }
+        this.fetchItems(endpoint);
+    }
+
     loadMoreItems = () => {
         let endpoint = '';
         this.setState({loading: true});
@@ -53,12 +69,19 @@ class Home extends Component {
     render() {
         return (
             <div className="rmdb-home">
-                <HeroImage/>
-                <SearchBar/>
-                <FourColGrid/>
-                <LoadMoreBtn/>
-                <Spinner/>
-                <LoadMoreBtn/>
+                {this.state.heroImage ?
+                <div>
+                    <HeroImage
+                        image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${this.state.heroImage.backdrop_path}`}
+                        title={this.state.heroImage.original_title}
+                        text={this.state.heroImage.overview}
+                    />
+                    <SearchBar callback={this.searchItems} />
+                </div> : null }
+                    <FourColGrid/>
+                    <LoadMoreBtn/>
+                    <Spinner/>
+                    <LoadMoreBtn/>
             </div>
         )
     }
