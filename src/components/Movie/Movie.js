@@ -27,7 +27,6 @@ class Movie extends Component {
         fetch(endpoint)
             .then(result => result.json())
             .then(result => {
-                console.log
                 if (result.status_code) {
                     this.setState({ loading: false });
                 } else {
